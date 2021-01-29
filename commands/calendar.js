@@ -35,7 +35,7 @@ function listEvents(auth) {
       singleEvents: true,
       orderBy: 'startTime',
     }, (err, res) => {
-      if (err) return msg.channel.send('The API returned an error: ' + err);
+      if (err) return message.channel.send('The API returned an error: ' + err);
       const events = res.data.items;
       if (events.length) {
         events.map((event, i) => {
