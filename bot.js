@@ -8,6 +8,8 @@ const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
 /* Imports the database (mongoose) */
 const mongoose = require('mongoose')
+/* Imports eval */
+const eval = require('node-eval');
 /* Imports the config data */
 const config = require('./config.js');
 /* Makes a command collection */

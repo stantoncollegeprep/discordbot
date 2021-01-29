@@ -8,7 +8,7 @@ const token = config.token;
 /* Makes the sharding manager */
 const ShardManager = new ShardingManager("./bot.js", {
     token,
-    totalShards: 10
+    totalShards: 'auto'
 });
 
 /* This even is fired whenever a new shard is made */
