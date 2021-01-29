@@ -50,12 +50,7 @@ client.on('message', async message => {
     try {
         command.execute(message, arguments);
     } catch (error) {
-        const embed = new MessageEmbed()
-        .setTitle('Error')
-        .setColor('BLUE')
-        .setDescription(`An error occured while executing command, ${message.author}`)
-        .setTimestamp();
-        message.channel.send(embed);
+        message.channel.send(`Failed to execute file. \n **Error: ${error}**`);
     }
 });
 

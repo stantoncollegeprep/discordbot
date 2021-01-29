@@ -9,8 +9,6 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 
 /* Authorizes the app */
 
-const auth = process.env.googleauth;
-
 function authorize(credentials, callback) {
 
     const { client_secret, client_id, redirect_uris } = credentials.installed;
@@ -36,22 +34,35 @@ function listEvents(auth) {
       orderBy: 'startTime',
     }, (err, res) => {
       if (err) return message.channel.send('The API returned an error: ' + err);
-      const events = res.data.items;
+      const events = res.data.ite;
+      
+      var content = "**Upcoming events** \n";
+
       if (events.length) {
         events.map((event, i) => {
-          const start = event.start.dateTime || event.start.date;
-          const embed = new Discord.MessageEmbed()
-          .setTitle("Upcoming event")
-          .setColor('BLUE')
-          .setDescription(`${start} - ${event.summary}`)
-          .setTimestamp();
-          message.channel.send(embed);
+
+          const startdate = event.start.dateTime || event.start.date;
+          
+          content+= `${startdate} - ${event.summary} \n`;
+
         });
-      } else message.channel.send('No upcoming events found.');
+      } else return message.channel.send('No upcoming events found.');
+
+      message.channel.send(content);
     });
 };
 
 
-/* This starts everything */
 
-authorize(JSON.parse(auth), listEvents);
+module.exports = {
+    name: 'calendar',
+    aliases: ['calendar'],
+     description: 'Returns a calendar with known due dates!',
+	  execute(message, args) {
+  
+    const auth = process.env.googleauth;
+  
+    authorize(JSON.parse(auth), listEvents);
+
+	},
+};
